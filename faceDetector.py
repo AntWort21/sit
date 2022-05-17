@@ -33,11 +33,15 @@ while(True):
             notFound = 0 #if face is detected, reset notFound
             if found == 80:
                 print("Occupied") #send the data somewhere, then break the program
+                with open('readme.txt', 'w') as f:
+                    f.write('Occupied')
     else:
         notFound += 1
         found = 0 #if face is not detected, reset found
         if notFound == 80:
             print("Vacant")
+            with open('readme.txt', 'w') as f:
+                    f.write('Vacant')
     
         # time.sleep(10)
         # print("output")
