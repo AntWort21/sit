@@ -1,6 +1,11 @@
 import cv2
-import numpy as np
-import time
+import pymysql
+
+connection = pymysql.connect(host="localhost", user="root", password="", database="python_connection")
+cursor = connection.cursor()
+updateVacant = "UPDATE seatdata SET availability='Vacant' WHERE id = '1';"
+updateOccupied = "UPDATE seatdata SET availability='Occupied' WHERE id = '1';"
+
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -33,18 +38,19 @@ while(True):
             notFound = 0 #if face is detected, reset notFound
             if found == 80:
                 print("Occupied") #send the data somewhere, then break the program
-                with open('readme.txt', 'w') as f:
-                    f.write('Occupied')
+                cursor.execute(updateOccupied)
+                # with open('readme.txt', 'w') as f:
+                #     f.write('Occupied')
     else:
         notFound += 1
         found = 0 #if face is not detected, reset found
         if notFound == 80:
             print("Vacant")
-            with open('readme.txt', 'w') as f:
-                    f.write('Vacant')
+            cursor.execute(updateVacant)
+            # with open('readme.txt', 'w') as f:
+            #         f.write('Vacant')
     
         # time.sleep(10)
-        # print("output")
         #output 1 and 0 where face is detected and then save it into a notepad file
         #the result from notepad connect it to the android application
     
@@ -53,7 +59,9 @@ while(True):
     cv2.imshow('frame', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+    connection.commit()
 
+connection.close()
 capture.release()
 # out.release()
 cv2.destroyAllWindows()
