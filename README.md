@@ -1,1 +1,1 @@
-creating the cafeteria application
+creating the cafeteria seat availability application
