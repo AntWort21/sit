@@ -1,7 +1,8 @@
-creating the cafeteria seat availability application
+Creating the cafeteria seat availability application
 
-Python Libraries Required
 
-opencv (pip install opencv-contrib-python)
+Python Libraries Required:
 
-pymysql (pip install PyMySQL)
+- opencv (pip install opencv-contrib-python)
+
+- pymysql (pip install PyMySQL)
