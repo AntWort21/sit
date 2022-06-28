@@ -1,10 +1,10 @@
 import cv2
 import pymysql
 
-connection = pymysql.connect(host="localhost", user="root", password="", database="python_connection")
+connection = pymysql.connect(host="localhost", user="root", password="", database="sitapplication")
 cursor = connection.cursor()
-updateVacant = "UPDATE seatdata SET availability='Vacant' WHERE id = '1';"
-updateOccupied = "UPDATE seatdata SET availability='Occupied' WHERE id = '1';"
+updateVacant = "UPDATE status SET seat='Vacant' WHERE id = '1';"
+updateOccupied = "UPDATE status SET seat='Occupied' WHERE id = '1';"
 
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -36,7 +36,7 @@ while(True):
             cv2.rectangle(frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
             found+=1
             notFound = 0 #if face is detected, reset notFound
-            if found == 80:
+            if found == 10:
                 print("Occupied") #send the data somewhere, then break the program
                 cursor.execute(updateOccupied)
                 # with open('readme.txt', 'w') as f:
@@ -44,7 +44,7 @@ while(True):
     else:
         notFound += 1
         found = 0 #if face is not detected, reset found
-        if notFound == 80:
+        if notFound == 10:
             print("Vacant")
             cursor.execute(updateVacant)
             # with open('readme.txt', 'w') as f:
